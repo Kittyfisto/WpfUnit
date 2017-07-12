@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>WpfUnit</id>
-    <version>$version$</version>
+    <version>$version$-alpha</version>
     <authors>Kittyfisto</authors>
     <owners>Kittyfisto</owners>
     <licenseUrl>https://github.com/Kittyfisto/WpfUnit/blob/master/LICENSE</licenseUrl>
@@ -14,9 +14,9 @@
     <tags>.NET WPF unit testing</tags>
   </metadata>
   <files>
-    <file src="..\bin\Release\WpfUnit.XML" target="lib\net45\" />
-    <file src="..\bin\Release\WpfUnit.pdb" target="lib\net45\" />
-    <file src="..\bin\Release\WpfUnit.dll" target="lib\net45\" />
-    <file src="..\bin\Release\0Harmony.dll" target="lib\net45\" />
+    <file src="..\bin\Debug\WpfUnit.XML" target="lib\net45\" />
+    <file src="..\bin\Debug\WpfUnit.pdb" target="lib\net45\" />
+    <file src="..\bin\Debug\WpfUnit.dll" target="lib\net45\" />
+    <file src="..\bin\Debug\0Harmony.dll" target="lib\net45\" />
   </files>
 </package>
