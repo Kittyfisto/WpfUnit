@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>WpfUnit</id>
+    <version>$version$</version>
+    <authors>Kittyfisto</authors>
+    <owners>Kittyfisto</owners>
+    <licenseUrl>https://github.com/Kittyfisto/WpfUnit/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Kittyfisto/WpfUnit/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A framework to enable unit testing of WPF custom- and user controls</description>
+    <releaseNotes>Alpha release</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>.NET WPF unit testing</tags>
+  </metadata>
+  <files>
+    <file src="..\bin\Release\WpfUnit.XML" target="lib\net45\" />
+    <file src="..\bin\Release\WpfUnit.pdb" target="lib\net45\" />
+    <file src="..\bin\Release\WpfUnit.dll" target="lib\net45\" />
+  </files>
+</package>
