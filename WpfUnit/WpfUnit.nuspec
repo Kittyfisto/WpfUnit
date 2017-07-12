@@ -17,5 +17,6 @@
     <file src="..\bin\Release\WpfUnit.XML" target="lib\net45\" />
     <file src="..\bin\Release\WpfUnit.pdb" target="lib\net45\" />
     <file src="..\bin\Release\WpfUnit.dll" target="lib\net45\" />
+    <file src="..\bin\Release\0Harmony.dll" target="lib\net45\" />
   </files>
 </package>
