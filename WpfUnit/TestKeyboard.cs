@@ -37,7 +37,7 @@ namespace WpfUnit
 		/// </summary>
 		public TestKeyboard()
 		{
-			_dummyInputSource = new HwndSource(0, 0, 0, 0, 0, "", IntPtr.Zero);
+			_dummyInputSource = new HwndSource(classStyle: 0, style: 0, exStyle: 0, x: 0, y: 0, name: "", parent: IntPtr.Zero);
 			Reset();
 		}
 
@@ -59,7 +59,12 @@ namespace WpfUnit
 			PressedKeys.Remove(key);
 		}
 
-		public void Click(UIElement element, Key key)
+		/// <summary>
+		///     Presses the given key and then notifies the given element of the key press.
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="key"></param>
+		public void Press(UIElement element, Key key)
 		{
 			Press(key);
 			element.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice,
@@ -69,7 +74,15 @@ namespace WpfUnit
 			{
 				RoutedEvent = UIElement.KeyDownEvent
 			});
+		}
 
+		/// <summary>
+		///     Releases the given key and then notifies the given element of the release.
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="key"></param>
+		public void Release(UIElement element, Key key)
+		{
 			Release(key);
 			element.RaiseEvent(new KeyEventArgs(Keyboard.PrimaryDevice,
 				_dummyInputSource,
@@ -78,6 +91,67 @@ namespace WpfUnit
 			{
 				RoutedEvent = UIElement.KeyUpEvent
 			});
+		}
+
+		/// <summary>
+		///     Presses and releases the given key, while notifying the given element.
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="key"></param>
+		public void Click(UIElement element, Key key)
+		{
+			try
+			{
+				Press(element, key);
+			}
+			finally
+			{
+				Release(element, key);
+			}
+		}
+
+		/// <summary>
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="key"></param>
+		/// <param name="modifierKeys"></param>
+		public void Click(UIElement element, Key key, ModifierKeys modifierKeys)
+		{
+			var keys = new List<Key>();
+			AddKeys(modifierKeys, keys);
+			keys.Add(key);
+
+			try
+			{
+				foreach (var k in keys)
+					Press(element, k);
+				foreach (var k in keys)
+					Release(element, k);
+			}
+			catch(Exception)
+			{
+				// If we're here then that means that the custom control threw an unexpected exception.
+				// There's no point in trying to notify the control of any further key releases
+				// (because the Click operation has failed and shall rethrow that exception).
+				// Therefore we only try to reset the state of the keyboard to what it was when Click()
+				// was called and then call it a day...
+				foreach (var k in keys)
+					Release(k);
+
+				throw;
+			}
+		}
+
+		private static void AddKeys(ModifierKeys modifierKeys, List<Key> ret)
+		{
+			if (modifierKeys.HasFlag(ModifierKeys.Control))
+				ret.Add(Key.LeftCtrl);
+			if (modifierKeys.HasFlag(ModifierKeys.Alt))
+				ret.Add(Key.LeftAlt);
+			if (modifierKeys.HasFlag(ModifierKeys.Shift))
+				ret.Add(Key.RightShift);
+			if (modifierKeys.HasFlag(ModifierKeys.Windows))
+				ret.Add(Key.LWin);
 		}
 
 		#region Keyboard
