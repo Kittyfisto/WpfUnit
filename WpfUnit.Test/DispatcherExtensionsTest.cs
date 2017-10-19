@@ -11,6 +11,60 @@ namespace WpfUnit.Test
 	public sealed class DispatcherExtensionsTest
 	{
 		[Test]
+		public void TestGetActiveDispatcherTimers1()
+		{
+			Dispatcher dispatcher = null;
+			new Action(() => dispatcher.GetActiveDispatcherTimers())
+				.ShouldThrow<NullReferenceException>();
+		}
+
+		[Test]
+		public void TestGetActiveDispatcherTimers2()
+		{
+			var dispatcher = Dispatcher.CurrentDispatcher;
+			dispatcher.GetActiveDispatcherTimers().Should().BeEmpty("because we haven't started any dispatcher timer");
+		}
+
+		[Test]
+		public void TestGetActiveDispatcherTimers3()
+		{
+			var dispatcher = Dispatcher.CurrentDispatcher;
+			var timer = new DispatcherTimer();
+			dispatcher.GetActiveDispatcherTimers().Should().BeEmpty("because we haven't started any dispatcher timer");
+			GC.KeepAlive(timer);
+		}
+
+		[Test]
+		public void TestGetActiveDispatcherTimers4()
+		{
+			var dispatcher = Dispatcher.CurrentDispatcher;
+			var timer = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Input, (sender, args) => { }, dispatcher);
+			timer.Start();
+			dispatcher.GetActiveDispatcherTimers().Should().Equal(new object[] {timer}, "because we've just started that timer");
+			timer.Stop();
+			dispatcher.GetActiveDispatcherTimers().Should().BeEmpty("because we've just stopped the last timer");
+		}
+
+		[Test]
+		public void TestGetActiveDispatcherTimers5()
+		{
+			var dispatcher = Dispatcher.CurrentDispatcher;
+			var timer1 = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Input, (sender, args) => { }, dispatcher);
+			timer1.Start();
+			dispatcher.GetActiveDispatcherTimers().Should().Equal(new object[] { timer1 }, "because we've just started that timer");
+
+			var timer2 = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Input, (sender, args) => { }, dispatcher);
+			timer2.Start();
+			dispatcher.GetActiveDispatcherTimers().Should().BeEquivalentTo(new object[] {timer1, timer2}, "because we've just started a 2nd timer");
+
+			timer1.Stop();
+			dispatcher.GetActiveDispatcherTimers().Should().Equal(new object[] {timer2}, "because only one timer is left");
+
+			timer2.Stop();
+			dispatcher.GetActiveDispatcherTimers().Should().BeEmpty("because we've just stopped the last timer");
+		}
+
+		[Test]
 		public void TestExecutePendingEvents1()
 		{
 			Dispatcher dispatcher = null;
