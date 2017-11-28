@@ -21,6 +21,18 @@ namespace WpfUnit.Test
 			mouse.MoveRelativeTo(control, new Point(42, 24));
 			control.Position.Should().Be(new Point(42, 24));
 		}
+
+		[Test]
+		public void TestRotateMouseWheel()
+		{
+			var mouse = new TestMouse();
+			var control = new TestControl();
+
+			mouse.RotateMouseWheel(control, 1);
+			control.WheelDelta.Should().Be(1);
+			mouse.RotateMouseWheel(control, -1);
+			control.WheelDelta.Should().Be(-1);
+		}
 	}
 
 	public sealed class TestControl
@@ -29,6 +41,12 @@ namespace WpfUnit.Test
 		public TestControl()
 		{
 			MouseMove += OnMouseMove;
+			MouseWheel += OnMouseWheel;
+		}
+
+		private void OnMouseWheel(object sender, MouseWheelEventArgs args)
+		{
+			WheelDelta = args.Delta;
 		}
 
 		private void OnMouseMove(object sender, MouseEventArgs args)
@@ -36,6 +54,7 @@ namespace WpfUnit.Test
 			Position = Mouse.GetPosition(this);
 		}
 
+		public int WheelDelta;
 		public Point Position;
 	}
 }

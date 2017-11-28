@@ -134,6 +134,19 @@ namespace WpfUnit
 			RightClick(element);
 		}
 
+		/// <summary>
+		///     Causes the <see cref="UIElement.MouseWheelEvent" /> to be raised on the given control.
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="wheelDelta">The number of wheel ticks which have changed</param>
+		public void RotateMouseWheel(UIElement element, int wheelDelta)
+		{
+			element.RaiseEvent(new MouseWheelEventArgs(Mouse.PrimaryDevice, Environment.TickCount, wheelDelta)
+			{
+				RoutedEvent = UIElement.MouseWheelEvent
+			});
+		}
+
 		[HarmonyPatch(typeof(Mouse))]
 		[HarmonyPatch("GetPosition")]
 		static class PatchMouseGetPosition
