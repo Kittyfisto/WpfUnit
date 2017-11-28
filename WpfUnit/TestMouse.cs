@@ -147,6 +147,24 @@ namespace WpfUnit
 			});
 		}
 
+		/// <summary>
+		///     Causes the <see cref="UIElement.MouseWheelEvent" /> to be raised on the given control.
+		/// </summary>
+		/// <param name="element"></param>
+		public void RotateMouseWheelUp(UIElement element)
+		{
+			RotateMouseWheel(element, 120);
+		}
+
+		/// <summary>
+		///     Causes the <see cref="UIElement.MouseWheelEvent" /> to be raised on the given control.
+		/// </summary>
+		/// <param name="element"></param>
+		public void RotateMouseWheelDown(UIElement element)
+		{
+			RotateMouseWheel(element, -120);
+		}
+
 		[HarmonyPatch(typeof(Mouse))]
 		[HarmonyPatch("GetPosition")]
 		static class PatchMouseGetPosition

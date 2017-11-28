@@ -33,6 +33,26 @@ namespace WpfUnit.Test
 			mouse.RotateMouseWheel(control, -1);
 			control.WheelDelta.Should().Be(-1);
 		}
+
+		[Test]
+		public void TestRotateMouseWheelUp()
+		{
+			var mouse = new TestMouse();
+			var control = new TestControl();
+
+			mouse.RotateMouseWheelUp(control);
+			control.WheelDelta.Should().Be(120);
+		}
+
+		[Test]
+		public void TestRotateMouseWheelDown()
+		{
+			var mouse = new TestMouse();
+			var control = new TestControl();
+
+			mouse.RotateMouseWheelDown(control);
+			control.WheelDelta.Should().Be(-120);
+		}
 	}
 
 	public sealed class TestControl
