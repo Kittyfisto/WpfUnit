@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUnit", "WpfUnit\WpfUnit.csproj", "{B87E7BAD-A134-4AB4-BAB4-00DCB3D9B690}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUnit", "src\WpfUnit\WpfUnit.csproj", "{B87E7BAD-A134-4AB4-BAB4-00DCB3D9B690}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUnit.Test", "WpfUnit.Test\WpfUnit.Test.csproj", "{18E41116-E6ED-4506-B2A7-E86D1D69A86C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfUnit.Test", "src\WpfUnit.Test\WpfUnit.Test.csproj", "{18E41116-E6ED-4506-B2A7-E86D1D69A86C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DB2DF420-F70C-493E-8BB0-E724C9DD3D5F}"
 	ProjectSection(SolutionItems) = preProject

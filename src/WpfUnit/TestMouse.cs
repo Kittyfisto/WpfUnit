@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using Harmony;
+using HarmonyLib;
+using NUnit.Framework;
 
 namespace WpfUnit
 {
@@ -55,6 +56,7 @@ namespace WpfUnit
 		public void SetMousePositionRelativeTo(IInputElement element, Point relativePosition)
 		{
 			Positions[element] = relativePosition;
+            TestContext.Progress.WriteLine("Changed mouse position to {0}", relativePosition);
 		}
 
 		/// <summary>
@@ -169,9 +171,11 @@ namespace WpfUnit
 		[HarmonyPatch("GetPosition")]
 		static class PatchMouseGetPosition
 		{
+            [HarmonyPostfix]
 			private static void Postfix(IInputElement relativeTo, ref Point __result)
 			{
 				Positions.TryGetValue(relativeTo, out __result);
+                TestContext.Progress.WriteLine("Intercepted GetPosition({0}): {1}", relativeTo, __result);
 			}
 		}
 
@@ -179,6 +183,7 @@ namespace WpfUnit
 		[HarmonyPatch("GetPosition")]
 		sealed class PatchMouseEventArgsGetPosition
 		{
+            [HarmonyPostfix]
 			public static void Postfix(IInputElement relativeTo, ref Point __result)
 			{
 				Positions.TryGetValue(relativeTo, out __result);

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-using Harmony;
+using HarmonyLib;
+using NUnit.Framework;
 
 namespace WpfUnit
 {

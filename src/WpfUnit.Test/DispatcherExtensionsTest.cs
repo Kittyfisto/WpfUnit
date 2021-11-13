@@ -15,7 +15,7 @@ namespace WpfUnit.Test
 		{
 			Dispatcher dispatcher = null;
 			new Action(() => dispatcher.GetActiveDispatcherTimers())
-				.ShouldThrow<NullReferenceException>();
+				.Should().Throw<NullReferenceException>();
 		}
 
 		[Test]
@@ -40,7 +40,7 @@ namespace WpfUnit.Test
 			var dispatcher = Dispatcher.CurrentDispatcher;
 			var timer = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Input, (sender, args) => { }, dispatcher);
 			timer.Start();
-			dispatcher.GetActiveDispatcherTimers().Should().Equal(new object[] {timer}, "because we've just started that timer");
+			dispatcher.GetActiveDispatcherTimers().Should().BeEquivalentTo(new object[] {timer}, "because we've just started that timer");
 			timer.Stop();
 			dispatcher.GetActiveDispatcherTimers().Should().BeEmpty("because we've just stopped the last timer");
 		}
@@ -51,14 +51,14 @@ namespace WpfUnit.Test
 			var dispatcher = Dispatcher.CurrentDispatcher;
 			var timer1 = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Input, (sender, args) => { }, dispatcher);
 			timer1.Start();
-			dispatcher.GetActiveDispatcherTimers().Should().Equal(new object[] { timer1 }, "because we've just started that timer");
+			dispatcher.GetActiveDispatcherTimers().Should().BeEquivalentTo(new object[] { timer1 }, "because we've just started that timer");
 
 			var timer2 = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Input, (sender, args) => { }, dispatcher);
 			timer2.Start();
 			dispatcher.GetActiveDispatcherTimers().Should().BeEquivalentTo(new object[] {timer1, timer2}, "because we've just started a 2nd timer");
 
 			timer1.Stop();
-			dispatcher.GetActiveDispatcherTimers().Should().Equal(new object[] {timer2}, "because only one timer is left");
+			dispatcher.GetActiveDispatcherTimers().Should().BeEquivalentTo(new object[] {timer2}, "because only one timer is left");
 
 			timer2.Stop();
 			dispatcher.GetActiveDispatcherTimers().Should().BeEmpty("because we've just stopped the last timer");
@@ -69,7 +69,7 @@ namespace WpfUnit.Test
 		{
 			Dispatcher dispatcher = null;
 			new Action(() => dispatcher.ExecutePendingEvents())
-				.ShouldThrow<NullReferenceException>();
+				.Should().Throw<NullReferenceException>();
 		}
 
 		[Test]
@@ -78,7 +78,7 @@ namespace WpfUnit.Test
 		public void TestExecutePendingEvents2()
 		{
 			var dispatcher = Dispatcher.CurrentDispatcher;
-			new Action(() => dispatcher.ExecutePendingEvents()).ExecutionTime().ShouldNotExceed(TimeSpan.FromSeconds(1));
+			new Action(() => dispatcher.ExecutePendingEvents()).ExecutionTime().Should().BeLessOrEqualTo(TimeSpan.FromSeconds(1));
 		}
 
 		[Test]

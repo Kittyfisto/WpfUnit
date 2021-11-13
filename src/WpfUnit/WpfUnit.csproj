@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net45;net5-windows</TargetFrameworks>
+    <AssemblyName>WpfUnit</AssemblyName>
+    <RootNamespace>WpfUnit</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<UseWPF>true</UseWPF>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	
+	<Authors>Simon Mießler</Authors>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/Kittyfisto/WpfUnit</PackageProjectUrl>
+	<PackageTags>.NET WPF unit testing</PackageTags>
+	<Description>A framework to enable unit testing of WPF custom- and user controls</Description>
+	<Version>0.1.0.0</Version>
+	<AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>..\..\bin\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.1.1" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+  </ItemGroup>
+</Project>

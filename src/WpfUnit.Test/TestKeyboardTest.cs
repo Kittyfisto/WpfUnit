@@ -9,6 +9,7 @@ using NUnit.Framework;
 
 namespace WpfUnit.Test
 {
+
 	[TestFixture]
 	[RequiresThread(ApartmentState.STA)]
 	public sealed class TestKeyboardTest
@@ -173,6 +174,7 @@ namespace WpfUnit.Test
 				Keyboard.IsKeyToggled(key).Should().BeFalse();
 			}
 
+			Console.WriteLine("Test");
 			keyboard.Press(Key.LeftShift);
 
 			foreach (var key in Keys)
@@ -219,7 +221,7 @@ namespace WpfUnit.Test
 			var control = new BrokenControl();
 
 			var keyboard = new TestKeyboard();
-			new Action(() => keyboard.Click(control, Key.A)).ShouldThrow<NullReferenceException>("because the control author made a booboo");
+			new Action(() => keyboard.Click(control, Key.A)).Should().Throw<NullReferenceException>("because the control author made a booboo");
 
 			Keyboard.IsKeyDown(Key.A).Should()
 				.BeFalse(
@@ -233,7 +235,7 @@ namespace WpfUnit.Test
 			var control = new BrokenControl(keyToFailOn: Key.A);
 
 			var keyboard = new TestKeyboard();
-			new Action(() => keyboard.Click(control, Key.A, ModifierKeys.Control)).ShouldThrow<NullReferenceException>("because the control author made a booboo");
+			new Action(() => keyboard.Click(control, Key.A, ModifierKeys.Control)).Should().Throw<NullReferenceException>("because the control author made a booboo");
 
 			Keyboard.IsKeyDown(Key.A).Should()
 				.BeFalse(
