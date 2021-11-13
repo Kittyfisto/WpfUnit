@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;net5-windows</TargetFrameworks>
+    <TargetFrameworks>net45</TargetFrameworks>
     <AssemblyName>WpfUnit</AssemblyName>
     <RootNamespace>WpfUnit</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
